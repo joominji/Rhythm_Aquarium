@@ -1,34 +1,60 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    private bool pause = false;
-    public GameObject pauseWindow;
-    public Slider slider;
-    public AudioSource audioSource;
+    private ComboManager comboManager;
+    public TextMeshProUGUI CurrentTimeText;
+    public AudioSource AudioSource;
+    public GameObject ClearWindow;
+    public GameObject PlayWindow;
+    public GameObject PauseWindow;
+    public Slider NowPlayingSlider;
+
+    private float CurrentTime;
+    private bool Pause = false;
 
     void Start()
     {
-        pauseWindow.gameObject.SetActive(false);
+        comboManager = GetComponent<ComboManager>();
+        ClearWindow.gameObject.SetActive(false);
+        PauseWindow.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-        slider.maxValue = audioSource.clip.length;
+        NowPlayingSlider.maxValue = AudioSource.clip.length;
+        AudioSource.loop = false;
     }
 
     private void Update()
     {
-        Debug.Log(pause);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleCursor(!pause);
-            
+            ToggleCursor(!Pause);
         }
-        slider.value = audioSource.time;
+        CurrentTime = AudioSource.time;
+        CurrentTimeText.text = FormatTime(CurrentTime);
+        NowPlayingSlider.value = AudioSource.time;
+
+        if (NowPlayingSlider.value == NowPlayingSlider.maxValue)//곡이 끝날 시로 변경 예정입니다. 일단은 잘 작동이 됩니다.
+        {
+            comboManager.UpdateCount();
+            ClearWindow.gameObject.SetActive(true);
+            PlayWindow.gameObject.SetActive(false);
+            AudioSource.clip = null;
+        }
+    }
+
+    string FormatTime(float timeInSeconds)
+    {
+        // 초를 분:초 형식의 문자열로 변환
+        int minutes = Mathf.FloorToInt(timeInSeconds / 60f);
+        int seconds = Mathf.FloorToInt(timeInSeconds % 60f);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void ChangeMusicPauseState()
@@ -43,31 +69,31 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void GoSelectScene()
-    {
-        SceneManager.LoadScene("�� ���� �� �̸�");
-    }
-
     private bool IsMusicPlaying()
     {
-        return audioSource.isPlaying;
+        return AudioSource.isPlaying;
     }
 
     private void PauseMusic()
     {
-        audioSource.Pause();
+        AudioSource.Pause();
     }
 
     private void PlayMusic()
     {
-        audioSource.Play();
+        AudioSource.Play();
     }
 
     public void ToggleCursor(bool toggle)
     {
         ChangeMusicPauseState();
-        pauseWindow.gameObject.SetActive(toggle);
+        PauseWindow.gameObject.SetActive(toggle);
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        pause = !pause;
+        Pause = !Pause;
+    }
+
+    public void GoSelectScene()
+    {
+        SceneManager.LoadScene("곡 선택 신 이름");
     }
 }
