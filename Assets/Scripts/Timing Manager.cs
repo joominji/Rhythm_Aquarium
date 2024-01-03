@@ -27,6 +27,7 @@ public class TimingManager : MonoBehaviour
             for (int y = 0; y < timingBoxs.Length; y++)
             {
                 Debug.Log("Hit" + y);
+                return;
             }
         }
         Debug.Log("Miss");
