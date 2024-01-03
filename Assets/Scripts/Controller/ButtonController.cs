@@ -7,6 +7,7 @@ public class ButtonController : MonoBehaviour
     private SpriteRenderer theSR;
     public Sprite DefaultImage;
     public Sprite PressedImage;
+    TimingManager timingManager;
  
     
 
@@ -15,12 +16,14 @@ public class ButtonController : MonoBehaviour
     private void Start()
     {
         theSR = GetComponent<SpriteRenderer>();
+        timingManager = FindObjectOfType<TimingManager>();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyToPress))
         {
             theSR.sprite = PressedImage;
+            timingManager.CheckTiming();
 
         }
         if (Input.GetKeyUp(KeyToPress))
