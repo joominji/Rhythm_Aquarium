@@ -33,7 +33,7 @@ public class ComboManager : MonoBehaviour
         ComboLevelText.gameObject.SetActive(false);
         ComboText.gameObject.SetActive(false);
         JudgeText.gameObject.SetActive(false);
-        ComboGauge.maxValue = 20;   //콤보게이지 최대치 설정
+        ComboGauge.maxValue = 100;   //콤보게이지 최대치 설정
     }
 
     private void Update()
@@ -47,7 +47,8 @@ public class ComboManager : MonoBehaviour
             
             if (Combo != 0)
             { 
-                ComboGauge.value = Combo % 20;
+                //콤보 게이지 최대치 수정하셨으면 여기도 수정하셔야 합니다.
+                ComboGauge.value = Combo % 100;
                 if (ComboGauge.value == 0)
                 {
                     UpdateComboLevelText();
@@ -118,7 +119,7 @@ public class ComboManager : MonoBehaviour
         }
         ComboLevelText.gameObject.SetActive(true);
         ComboLevelText.text = "X" + ComboLevel.ToString();
-        //0.6초 뒤에 꺼집니다.
+        //1초 뒤에 꺼집니다.
         //이 ComboLevelText는 Combo와 JudgeText와는 다르게
         //연타를 해도 사라져야 하기에 따로 놨습니다.
         Invoke("DisActiveComboLevelText", 1f);

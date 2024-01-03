@@ -43,12 +43,16 @@ public class UIManager : MonoBehaviour
         if (NowPlayingSlider.value == NowPlayingSlider.maxValue)//곡이 끝날 시로 변경 예정입니다. 일단은 잘 작동이 됩니다.
         {
             comboManager.UpdateCount();
-            ClearWindow.gameObject.SetActive(true);
-            PlayWindow.gameObject.SetActive(false);
+            Invoke("ChangeWindow", 1.5f);
             AudioSource.clip = null;
         }
     }
 
+    private void ChangeWindow()
+    {
+        ClearWindow.gameObject.SetActive(true);
+        PlayWindow.gameObject.SetActive(false);
+    }
     string FormatTime(float timeInSeconds)
     {
         // 초를 분:초 형식의 문자열로 변환
