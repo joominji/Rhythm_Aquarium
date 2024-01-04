@@ -13,20 +13,17 @@ public class FishMove : MonoBehaviour
     float PlusY;
     float MinusY;
     float Speed;
-
-    Rigidbody2D rb;
+    int Per;
 
     void Start()
     {
-        // 자신 지정
-        rb = GetComponent<Rigidbody2D>();
-
+        StartPosition(); // 기본 위치 설정
         // 기본 속도
         directionX = 0.01f;
         directionY = 0.01f;
         Speed = 0.01f;
         GetComponent<SpriteRenderer>().flipX = true;
-        InvokeRepeating("PositionSetting", 1f, 5f); // 이동 한계 거리를 5초마다 변경
+        InvokeRepeating("PositionSetting", 0.1f, 2f); // 이동 한계 거리를 2초마다 변경
     }
 
     void Update()
@@ -63,6 +60,8 @@ public class FishMove : MonoBehaviour
         {
             directionY = 0.01f;
         }
+        // 방향 버그 수정
+        DirectionSwitch();
 
         transform.position += new Vector3(directionX, directionY, 0); // 이동
     }
@@ -85,6 +84,27 @@ public class FishMove : MonoBehaviour
         }
     }
 
+    // 기본 위치 설정
+    private void StartPosition()
+    {
+        float randomX = Random.Range(-8f, 8f);
+        float randomY = Random.Range(-4f, 3.25f);
+        transform.position = new Vector3(randomX, randomY, 0);
+    }
+
+    // 방향 수정 함수
+    private void DirectionSwitch()
+    {
+        if (directionX >= 0.01f)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (directionX <= -0.01f)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+    }
+
     // 이동 한계 거리 변경 함수
     private void PositionSetting()
     {
@@ -93,5 +113,13 @@ public class FishMove : MonoBehaviour
         MinusX = transform.position.x - Random.Range(0.4f, 10f); // X좌표 - 한계값
         PlusY = transform.position.y + Random.Range(0.4f, 8f); // Y좌표 + 한계값
         MinusY = transform.position.y - Random.Range(0.4f, 8f); // Y좌표 - 한계값
+
+        // 30% 확률로 방향 전환
+        Per = Random.Range(1, 11);
+        if (Per >= 8)
+        {
+            directionX *= -1f;
+            DirectionSwitch();
+        }
     }
 }
