@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 296291753}
   - component: {fileID: 296291752}
   m_Layer: 0
-  m_Name: underwater-fantasy-preview
+  m_Name: MAP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,8 +200,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296291751}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0018, y: -0.0808, z: 0}
-  m_LocalScale: {x: 2.3020487, y: 5.1839166, z: 1}
+  m_LocalPosition: {x: 0.0019, y: -0.1223, z: 0}
+  m_LocalScale: {x: 2.3884473, y: 5.4010053, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
