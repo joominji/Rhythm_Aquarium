@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class SongDataEditerAudio : SongDataEditer
+public class SongDataEditerAudio : MonoBehaviour
 {
-    private KeyCode[] keys = { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R, KeyCode.T, KeyCode.Y };
+    private KeyCode[] keys = { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.J, KeyCode.K, KeyCode.L };
     private SongData songData;
     private AudioSource audioSource;
     private bool isRecording;
 
     // 녹화시작
-    public override void StartRecording()
+    public void StartRecording()
     {
         if (isRecording)
         {
@@ -23,7 +23,7 @@ public class SongDataEditerAudio : SongDataEditer
     }
 
     // 녹화종료
-    public override void StopRecording()
+    public void StopRecording()
     {
         if (isRecording == false)
         {
@@ -35,16 +35,16 @@ public class SongDataEditerAudio : SongDataEditer
     }
 
     // 녹화저장
-    public override void SaveRecording()
+    public void SaveRecording()
     {
         string dir = UnityEditor.EditorUtility.SaveFilePanelInProject("노래 데이터 저장", songData.name, "json", "");
         System.IO.File.WriteAllText(dir, JsonUtility.ToJson(songData));
     }
 
-    //public void Awake()
-    //{
-    //    audioSource = GetComponent<AudioSource>();
-    //}
+    public void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -55,7 +55,7 @@ public class SongDataEditerAudio : SongDataEditer
     }
 
     // 녹화에 관한 함수
-    public override void Recording()
+    public void Recording()
     {
         foreach (KeyCode key in keys)
         {
@@ -67,7 +67,7 @@ public class SongDataEditerAudio : SongDataEditer
     }
 
     // 노트데이터를 생성하는 함수 (뮤비 재생시간에 대한 키값)
-    public override NoteData CreateNoteData(KeyCode key)
+    public NoteData CreateNoteData(KeyCode key)
     {
         NoteData noteData = new NoteData()
         {
