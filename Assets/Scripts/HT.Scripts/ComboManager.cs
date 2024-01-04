@@ -6,34 +6,41 @@ using UnityEngine.UI;
 
 public class ComboManager : MonoBehaviour
 {
-    public TextMeshProUGUI ComboText;
-    public TextMeshProUGUI JudgeText;
-    public TextMeshProUGUI ComboLevelText;
+    public TextMeshProUGUI comboText;
+    public TextMeshProUGUI judgeText;
+    public TextMeshProUGUI comboLevelText;
+    public TextMeshProUGUI scoreText;
 
-    public TextMeshProUGUI PerfactCountText;
-    public TextMeshProUGUI GreatCountText;
-    public TextMeshProUGUI GoodCountText;
-    public TextMeshProUGUI BadCountText;
-    public TextMeshProUGUI MissCountText;
+    public TextMeshProUGUI perfactCountText;
+    public TextMeshProUGUI greatCountText;
+    public TextMeshProUGUI goodCountText;
+    public TextMeshProUGUI badCountText;
+    public TextMeshProUGUI missCountText;
 
-    public Slider ComboGauge;
+    public Slider comboGauge;
 
-    private float PerfactCount;
-    private float GreatCount;
-    private float GoodCount;
-    private float BadCount;
-    private float MissCount;
+    public Animator comboActiveAnimation;
 
-    private int ComboLevel;
-    private float Combo;
-    private float ActiveTime;   //텍스트 활성화 시간 수정은 아래서
+    private UIManager uIManager;
+
+    private int perfactCount;
+    private int greatCount;
+    private int goodCount;
+    private int badCount;
+    private int missCount;
+    private int score;
+
+    private int comboLevel;
+    private float combo;
+    private float activeTime;   //텍스트 활성화 시간 수정은 아래서
 
     private void Start()
     {
-        ComboLevelText.gameObject.SetActive(false);
-        ComboText.gameObject.SetActive(false);
-        JudgeText.gameObject.SetActive(false);
-        ComboGauge.maxValue = 100;   //콤보게이지 최대치 설정
+        uIManager = GetComponent<UIManager>();
+        comboLevelText.gameObject.SetActive(false);
+        comboText.gameObject.SetActive(false);
+        judgeText.gameObject.SetActive(false);
+        comboGauge.maxValue = 100;   //콤보게이지 최대치 설정
     }
 
     private void Update()
@@ -43,26 +50,26 @@ public class ComboManager : MonoBehaviour
         {
             UpdateComboText();
             
-            ActiveTime = 0.5f;  //텍스트 활성화 시간 수정은 여기서
+            activeTime = 0.5f;  //텍스트 활성화 시간 수정은 여기서
             
-            if (Combo != 0)
+            if (combo != 0)
             { 
                 //콤보 게이지 최대치 수정하셨으면 여기도 수정하셔야 합니다.
-                ComboGauge.value = Combo % 100;
-                if (ComboGauge.value == 0)
+                comboGauge.value = combo % 100;
+                if (comboGauge.value == 0)
                 {
                     UpdateComboLevelText();
                 }
             }
             else
             {
-                ComboGauge.value = 0;
+                comboGauge.value = 0;
                 UpdateComboLevelText();
             }
         }
 
-        ActiveTime = ActiveTime - Time.deltaTime;
-        if (ActiveTime <= 0)
+        activeTime = activeTime - Time.deltaTime;
+        if (activeTime <= 0)
         {
             DisActiveText();
         }
@@ -71,27 +78,37 @@ public class ComboManager : MonoBehaviour
 
     private void DisActiveText()
     {
-        ComboText.gameObject.SetActive(false);
-        JudgeText.gameObject.SetActive(false);
+        comboText.gameObject.SetActive(false);
+        judgeText.gameObject.SetActive(false);
     }
 
     private void ActiveComboText()
     {
-        ComboCalc();
-        ComboText.gameObject.SetActive(true);
+        ScoreCalc();
+        if (combo % 10 == 0 && combo != 0)
+        {
+            ChangeColor(Color.yellow, 0.4f, comboText);
+        }
+        else
+        {
+            ChangeColor(Color.white, 0.4f, comboText);
+        }
+        comboText.gameObject.SetActive(true);
     }
 
     private void UpdateComboText()
     {
+
         ActiveComboText();
-        ComboText.text = Combo.ToString();
-        Debug.Log("AddCombo");
+        comboText.text = combo.ToString();
+        comboActiveAnimation.SetTrigger("Active");
     }
 
-    //콤보 계산 성공시 Combo+1 실패시 Combo = 0
-    private void ComboCalc()
+    //콤보 계산
+    //성공시 Combo+1 실패시 Combo = 0
+    private void ScoreCalc()
     {
-        //if (/*판정이 Perfact, Great, Good, Bad?면*/)
+        //if (/*판정이 Perfact = 100, Great = 70, Good = 40, Bad = 0, miss = 0 면*/)
         //{
         //    ++Combo;
         //}
@@ -104,7 +121,7 @@ public class ComboManager : MonoBehaviour
         ActiveJudgeEffect();
 
         //위가 수정되면 사라질 코드
-        ++Combo;
+        ++combo;
     }
 
     /// <summary>
@@ -113,12 +130,12 @@ public class ComboManager : MonoBehaviour
     private void UpdateComboLevelText()
     {
         //임시로 최대치를 5로 해놨습니다. 
-        if (ComboLevel <= 4)
+        if (comboLevel <= 4)
         {
-            ++ComboLevel;
+            ++comboLevel;
         }
-        ComboLevelText.gameObject.SetActive(true);
-        ComboLevelText.text = "X" + ComboLevel.ToString();
+        comboLevelText.gameObject.SetActive(true);
+        comboLevelText.text = "X" + comboLevel.ToString();
         //1초 뒤에 꺼집니다.
         //이 ComboLevelText는 Combo와 JudgeText와는 다르게
         //연타를 해도 사라져야 하기에 따로 놨습니다.
@@ -130,7 +147,7 @@ public class ComboManager : MonoBehaviour
     /// </summary>
     private void DisActiveComboLevelText()
     {
-        ComboLevelText.gameObject.SetActive(false);
+        comboLevelText.gameObject.SetActive(false);
     }
 
     [ContextMenu("ActiveJudgeEffect")]
@@ -138,42 +155,78 @@ public class ComboManager : MonoBehaviour
     {
         //if (/*판정이 퍼펙트면*/)
         //{
+        //    ChangeColor(Color.red, 0.4f);
         //    JudgeText.text = (string)"Perfect!";
-        PerfactCount++;
+        perfactCount++;
         //}
         //else if (/*판정이 그레이트면*/)
         //{
+        //    ChangeColor(Color.green, 0.4f);
         //    JudgeText.text = (string)"Great!";
         //    GreatCount ++;
         //}
         //else if (/*판정이 굿이면*/)
         //{
+        //    ChangeColor(Color.yellow, 0.4f);
         //    JudgeText.text = (string)"Good!";
         //    GoodCount++;
         //}
         //else if (/*판정이 배드면*/)
         //{
+        //    ChangeColor(Color.black, 0.4f);
         //    JudgeText.text = (string)"Bad!";
         //    BadCount++;
         //}
         //else if (/*판정이 미스면*/)
         //{
+        //    ChangeColor(Color.blue, 0.4f);
         //    JudgeText.text = (string)"Miss!";
         //    MissCount++;
         //}
         //계속있을 코드입니다.
-        JudgeText.gameObject.SetActive(true);
+        judgeText.gameObject.SetActive(true);
+        ChangeColor(Color.red, 0.4f, judgeText);
 
         //위가 완성이 되면 아래 코드는 지울 예정입니다.
-        JudgeText.text = (string)"Perfect!";
+
+        judgeText.text = (string)"Perfect!";
+        
+    }
+
+
+    void ChangeColor(Color color, float alpha, TextMeshProUGUI textMeshProUGUI)
+    {
+        Color newColor = color;
+        newColor.a = alpha;
+
+        textMeshProUGUI.color = newColor;
     }
 
     public void UpdateCount()
     {
-        PerfactCountText.text = PerfactCount.ToString();
-        GreatCountText.text = GreatCount.ToString();
-        GoodCountText.text = GoodCount.ToString();
-        BadCountText.text = BadCount.ToString();
-        MissCountText.text = MissCount.ToString();
+        //GreatCountText.text = $"{GreatCount:D3}";
+
+        perfactCountText.text = /*(PerfactCount == 0) ? (string)"000" :*/ perfactCount.ToString("D3");
+        greatCountText.text = /*(GreatCount == 0) ? (string)"000" :*/ greatCount.ToString("D3");
+        goodCountText.text = /*(GoodCount == 0) ? (string)"000" :*/ goodCount.ToString("D3");
+        badCountText.text = /*(BadCount == 0) ? (string)"000" :*/ badCount.ToString("D3");
+        missCountText.text = /*(MissCount == 0) ? (string)"000" :*/ missCount.ToString("D3");
+    }
+
+    public void Retry()
+    {
+        perfactCount = 0;
+        greatCount = 0;
+        goodCount = 0;
+        badCount = 0;
+        missCount = 0;
+        combo = 0;
+
+        uIManager.audioSource.time = 0f;
+        comboGauge.value = 0;
+        uIManager.ToggleCursor(false);
+
+        //Score = 0;
+        //노트 시작부터 재생성 기능 추가 필요합니다.
     }
 }

@@ -10,57 +10,68 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     private ComboManager comboManager;
-    public TextMeshProUGUI CurrentTimeText;
-    public AudioSource AudioSource;
-    public GameObject ClearWindow;
-    public GameObject PlayWindow;
-    public GameObject PauseWindow;
-    public Slider NowPlayingSlider;
+    public TextMeshProUGUI currentTimeText;
+    public AudioSource audioSource;
+    public GameObject clearWindow;
+    public GameObject playWindow;
+    public GameObject pauseWindow;
+    public Slider nowPlayingSlider;
 
-    private float CurrentTime;
-    private bool Pause = false;
+    private float currentTime;
+    private bool pause;
 
     void Start()
     {
+        pause = false;                                          //다시 플레이 할 때를 위해 기본적으로 시작시 pause를 false로 초기화를 해주기 위함입니다.
         comboManager = GetComponent<ComboManager>();
-        ClearWindow.gameObject.SetActive(false);
-        PauseWindow.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        NowPlayingSlider.maxValue = AudioSource.clip.length;
-        AudioSource.loop = false;
+        clearWindow.gameObject.SetActive(false);
+        pauseWindow.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;               //어차피 커서 락을 걸기에 일시정지 버튼은 없앴습니다. 
+        nowPlayingSlider.maxValue = audioSource.clip.length;
+        audioSource.loop = false;                               //반복은 꺼놨습니다. 생각해보니 아래에서 audioSource의 clip을 null로 해주기에 필요 없을지도 모르겠습니다.
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleCursor(!Pause);
+            ToggleCursor(!pause);
         }
-        CurrentTime = AudioSource.time;
-        CurrentTimeText.text = FormatTime(CurrentTime);
-        NowPlayingSlider.value = AudioSource.time;
+        currentTime = audioSource.time;
+        currentTimeText.text = FormatTime(currentTime);
+        nowPlayingSlider.value = audioSource.time;
 
-        if (NowPlayingSlider.value == NowPlayingSlider.maxValue)//곡이 끝날 시로 변경 예정입니다. 일단은 잘 작동이 됩니다.
+        if (nowPlayingSlider.value == nowPlayingSlider.maxValue)//곡이 끝날 시입니다. 게임 오버시도 넣어야 합니다.
         {
-            comboManager.UpdateCount();
-            Invoke("ChangeWindow", 1.5f);
-            AudioSource.clip = null;
+            comboManager.UpdateCount();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
+            Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다. 
+            audioSource.clip = null;      //버그가 있어 한 곡이 끝나면 audioSource의 clip을 비우게 해놨습니다.
         }
     }
 
+    /// <summary>
+    /// 클리어 화면으로 전환 해주는 함수입니다
+    /// </summary>
     private void ChangeWindow()
     {
-        ClearWindow.gameObject.SetActive(true);
-        PlayWindow.gameObject.SetActive(false);
+        clearWindow.gameObject.SetActive(true);
+        playWindow.gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// 시간을 시간으로 보이게 해주기 위한 함수입니다.
+    /// </summary>
     string FormatTime(float timeInSeconds)
     {
         // 초를 분:초 형식의 문자열로 변환
-        int minutes = Mathf.FloorToInt(timeInSeconds / 60f);
-        int seconds = Mathf.FloorToInt(timeInSeconds % 60f);
+        float minutes = Mathf.FloorToInt(timeInSeconds / 60f);
+        float seconds = Mathf.FloorToInt(timeInSeconds % 60f);
         return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
+    /// <summary>
+    /// 음악의 일시정지 여부를 바꿔주는 함수입니다.
+    /// </summary>
     private void ChangeMusicPauseState()
     {
         if (IsMusicPlaying())
@@ -73,31 +84,33 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 음악이 재생중인지 판단해주는 함수입니다.
+    /// </summary>
     private bool IsMusicPlaying()
     {
-        return AudioSource.isPlaying;
+        return audioSource.isPlaying;
     }
-
+    /// <summary>
+    /// 음악 일시정지입니다.
+    /// </summary>
     private void PauseMusic()
     {
-        AudioSource.Pause();
+        audioSource.Pause();
     }
-
+    /// <summary>
+    /// 음악 재새입니다.
+    /// </summary>
     private void PlayMusic()
     {
-        AudioSource.Play();
+        audioSource.Play();
     }
 
     public void ToggleCursor(bool toggle)
     {
         ChangeMusicPauseState();
-        PauseWindow.gameObject.SetActive(toggle);
+        pauseWindow.gameObject.SetActive(toggle);
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        Pause = !Pause;
-    }
-
-    public void GoSelectScene()
-    {
-        SceneManager.LoadScene("곡 선택 신 이름");
+        pause = !pause;
     }
 }
