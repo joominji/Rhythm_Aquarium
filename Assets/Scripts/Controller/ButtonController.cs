@@ -22,6 +22,7 @@ public class ButtonController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyToPress))
         {
+            Debug.Log(KeyToPress + "»Ð");
             theSR.sprite = PressedImage;
             
             timingManager.CheckTiming();
