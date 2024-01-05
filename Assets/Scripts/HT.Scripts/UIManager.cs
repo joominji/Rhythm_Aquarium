@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -18,11 +16,10 @@ public class UIManager : MonoBehaviour
     public Slider nowPlayingSlider;
 
     private float currentTime;
-    private bool pause;
+    public bool pause = false;
 
     void Start()
     {
-        pause = false;                                          //다시 플레이 할 때를 위해 기본적으로 시작시 pause를 false로 초기화를 해주기 위함입니다.
         comboManager = GetComponent<ComboManager>();
         clearWindow.gameObject.SetActive(false);
         pauseWindow.gameObject.SetActive(false);
@@ -35,7 +32,10 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleCursor(!pause);
+            if (playWindow.activeInHierarchy)
+            {
+                ToggleCursor(!pause);
+            }
         }
         currentTime = audioSource.time;
         currentTimeText.text = FormatTime(currentTime);
@@ -43,19 +43,19 @@ public class UIManager : MonoBehaviour
 
         if (nowPlayingSlider.value == nowPlayingSlider.maxValue)//곡이 끝날 시입니다. 게임 오버시도 넣어야 합니다.
         {
-            comboManager.UpdateCount();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
-            Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다. 
-            audioSource.clip = null;      //버그가 있어 한 곡이 끝나면 audioSource의 clip을 비우게 해놨습니다.
+            comboManager.UpdateResult();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
+            Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다.
         }
     }
 
     /// <summary>
     /// 클리어 화면으로 전환 해주는 함수입니다
     /// </summary>
-    private void ChangeWindow()
+    public void ChangeWindow()
     {
         clearWindow.gameObject.SetActive(true);
         playWindow.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// 음악이 재생중인지 판단해주는 함수입니다.
     /// </summary>
-    private bool IsMusicPlaying()
+    public bool IsMusicPlaying()
     {
         return audioSource.isPlaying;
     }

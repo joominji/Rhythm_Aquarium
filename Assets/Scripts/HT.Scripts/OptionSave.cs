@@ -1,13 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-
 using UnityEngine;
 
 public class OptionSave : MonoBehaviour
 {
-
-    private string savePath = "Assets/Scripts/HT.Scripts/OptionData/OptionData.json";//ÀúÀå°æ·Î
+    private string savePath = "Assets/Scripts/HT.Scripts/OptionData/OptionData.json";//ì €ì¥ê²½ë¡œ
 
     public OptionController optionController;
 
@@ -30,12 +28,12 @@ public class OptionSave : MonoBehaviour
         string json = JsonUtility.ToJson(optionData);
         File.WriteAllText(savePath, json);
 
-        Debug.Log("ÀúÀåµÈ °ª" + json);
+        Debug.Log("ì €ì¥ëœ ê°’" + json);
     }
 
     [ContextMenu("From Json Data")]
-    //·ÎµåÇÒ ¶§ »ç¿ëÇÒ ¸Ş¼­µå
-    public void LoadOptionData()//ÀúÀåµÈ ¼¼ÀÌºê ºÒ·¯¿À±â
+    //ë¡œë“œí•  ë•Œ ì‚¬ìš©í•  ë©”ì„œë“œ
+    public void LoadOptionData()//ì €ì¥ëœ ì„¸ì´ë¸Œ ë¶ˆëŸ¬ì˜¤ê¸°
     {
         string json = File.ReadAllText(savePath);
         OptionData optionData = JsonUtility.FromJson<OptionData>(json);
@@ -47,6 +45,6 @@ public class OptionSave : MonoBehaviour
         optionController.ChangeBGM(index);
         optionController.ChangeVolume(volum);
 
-        Debug.Log("ÀúÀåµÈ °ª" + json);
+        Debug.Log("ì €ì¥ëœ ê°’" + json);
     }
 }

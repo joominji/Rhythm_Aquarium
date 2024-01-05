@@ -1,10 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using static OptionSave;
 
 public class OptionController : MonoBehaviour
 {
@@ -12,12 +11,12 @@ public class OptionController : MonoBehaviour
     public AudioSource bgmAudioSource;
     public TMP_Dropdown bgmDropdown;
     public TextMeshProUGUI dropDownLabel;
-    public AudioClip[] bgmClips; // BGM À½¾Ç ÆÄÀÏµéÀÔ´Ï´Ù Inspector¿¡¼­ Ãß°¡ ÇØ ÁÖ¼¼¿ä
+    public AudioClip[] bgmClips; //BGM ìŒì•… íŒŒì¼ë“¤ì…ë‹ˆë‹¤ Inspectorì—ì„œ ì¶”ê°€ í•´ ì£¼ì„¸ìš”
     public OptionSave optionSave;
 
     void Start()
     { 
-        // µå·Ó´Ù¿î ¿É¼Ç¿¡ BGM ¸ñ·Ï Ãß°¡
+        // ë“œë¡­ë‹¤ìš´ ì˜µì…˜ì— BGM ëª©ë¡ ì¶”ê°€
         foreach (var bgmClip in bgmClips)
         {
             bgmDropdown.options.Add(new TMP_Dropdown.OptionData(bgmClip.name));
@@ -25,6 +24,7 @@ public class OptionController : MonoBehaviour
         optionSave.LoadOptionData();
         soundSlider.onValueChanged.AddListener(ChangeVolume);
         bgmDropdown.onValueChanged.AddListener(ChangeBGM);
+        bgmAudioSource.loop = true;
     }
 
     private void Update()
