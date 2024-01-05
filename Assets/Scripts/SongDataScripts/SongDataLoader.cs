@@ -19,10 +19,10 @@ public static class SongDataLoader
 
     public static void Load(string name)
     {
-        dataLoaded = JsonUtility.FromJson<SongData>(Resources.Load<TextAsset>($"SongDatas/PPAP").ToString());
-        //dataLoaded = JsonUtility.FromJson<SongData>(Resources.Load<TextAsset>($"SongDatas/{name}").ToString());
-        clipLoaded = Resources.Load<VideoClip>($"VideoClip/PPAP");
-        //clipLoaded = Resources.Load<VideoClip>($"VideoClip/{name}");
-        audioLoaded = Resources.Load<AudioSource>($"AudioSource/{name}");
+        //dataLoaded = JsonUtility.FromJson<SongData>(Resources.Load<TextAsset>($"SongDatas/PPAP").ToString());
+        dataLoaded = JsonUtility.FromJson<SongData>(Resources.Load<TextAsset>($"SongDatas/{name}").ToString());
+        //clipLoaded = Resources.Load<VideoClip>($"VideoClip/PPAP");
+        clipLoaded = Resources.Load<VideoClip>($"VideoClip/{name}");
+        //audioLoaded = Resources.Load<AudioSource>($"AudioSource/{name}");
     }
 }
