@@ -208,7 +208,7 @@ public class ComboManager : MonoBehaviour
                 badCount++;
                 break;
             default:
-                ChangeJudgeText(Color.blue, judgeText, "Miss!");
+                ChangeJudgeText(Color.gray, judgeText, "Miss!");
                 missCount++;
                 break;
         }
