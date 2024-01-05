@@ -16,6 +16,7 @@ public class NoteManager : MonoBehaviour
     [SerializeField] private Transform hitterPoint;
     public float noteFallingDistance => transform.position.y - hitterPoint.position.y;
     public float noteFallingTime => noteFallingDistance / PlaySetting.speed; // 거리 / 속도 = 시간
+    
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class NoteManager : MonoBehaviour
         {
             _notes.Add(notes[i].key, notes[i]);
         }
+       
     }
 
     public void StartCreateNote(IEnumerable<NoteData> noteDatas)
@@ -52,6 +54,7 @@ public class NoteManager : MonoBehaviour
             if (noteDataQueue.Peek().time < (Time.time) - timeCheck)
             {
                 _notes[noteDataQueue.Dequeue().key].NoteCreate();
+                
             }
             else
             {
