@@ -25,6 +25,8 @@ public class PopupEquip : MonoBehaviour
                 {
                     slot.inputData.isEquiped = false;
                     slot.ChangeEquip();
+                    Destroy(slot.inputData.instantiatedFish);
+                    slot.inputData.instantiatedFish = null;
                 });
             }
             else
@@ -35,6 +37,12 @@ public class PopupEquip : MonoBehaviour
                 {
                     slot.inputData.isEquiped = true;
                     slot.ChangeEquip();
+                    if (slot.inputData.instantiatedFish == null)
+                    {
+                        slot.inputData.instantiatedFish = Instantiate(slot.inputData.fishObject,
+                                                                      DataManager.instance.fishSpawner.transform.position,
+                                                                      Quaternion.identity);
+                    }
                 });
             }
         }
