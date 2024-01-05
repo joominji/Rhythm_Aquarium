@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 49113770}
   m_Layer: 0
   m_Name: Notes
-  m_TagString: Untagged
+  m_TagString: Note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1992,7 +1992,7 @@ GameObject:
   - component: {fileID: 1232545708}
   m_Layer: 0
   m_Name: Judge Boxs
-  m_TagString: Untagged
+  m_TagString: JudgeBoxs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

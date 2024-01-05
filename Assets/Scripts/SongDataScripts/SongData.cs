@@ -13,5 +13,6 @@ public class SongData
     {
         this.name = name;
         notes = new List<NoteData>();
+        
     }
 }
