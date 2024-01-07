@@ -26,4 +26,5 @@ public class Note : MonoBehaviour
         timingManager.boxNoteList.Add(note.gameObject);
 
     }
+  
 }

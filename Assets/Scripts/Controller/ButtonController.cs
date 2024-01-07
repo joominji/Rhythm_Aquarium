@@ -8,8 +8,9 @@ public class ButtonController : MonoBehaviour
     public Sprite DefaultImage;
     public Sprite PressedImage;
     TimingManager timingManager;
- 
-    
+    BoomEfectController boomEfectController;
+
+
 
     public KeyCode KeyToPress;
 
@@ -22,9 +23,10 @@ public class ButtonController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyToPress))
         {
-            
+           
             theSR.sprite = PressedImage;
             timingManager.CheckTiming();
+            boomEfectController.CreateBoomEfect();
 
         }
         if (Input.GetKeyUp(KeyToPress))
