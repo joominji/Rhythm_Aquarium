@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
             Destroy(instance.gameObject);
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -52,8 +52,12 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.StartGame:
                 {
-                    NoteManager.instance.StartCreateNote(SongDataLoader.dataLoaded.notes);
-                    state = GameStates.WaitUntilGameFinished;
+                    if (MVPlayer.instance != null)
+                    {
+                        MVPlayer.instance.Play(SongDataLoader.clipLoaded);
+                        NoteManager.instance.StartCreateNote(SongDataLoader.dataLoaded.notes);
+                        state = GameStates.WaitUntilGameFinished;
+                    }
                 }
                 break;
             case GameStates.WaitUntilGameFinished:

@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
-  - Wahle
-  - NotFish
+  - Note
+  - JudgeBoxs
+  - TimingRect
   layers:
   - Default
   - TransparentFX
