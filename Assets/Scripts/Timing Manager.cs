@@ -14,6 +14,7 @@ public class TimingManager : MonoBehaviour
 
     Vector2[] timingBoxs = null;
 
+    public ComboManager comboManager;
 
 
 
@@ -44,7 +45,12 @@ public class TimingManager : MonoBehaviour
             {
                 Destroy(boxNoteList[i]);
                 boxNoteList.RemoveAt(i);
-                Debug.Log("Miss");
+                comboManager.ScoreCalc(0);
+                comboManager.ResetActiveTime();
+                comboManager.ActiveComboText();
+                comboManager.UpdateComboText();
+                comboManager.UpdateScoreText();
+                comboManager.UpdateComboGauge();
             }
         }
     }
@@ -71,6 +77,12 @@ public class TimingManager : MonoBehaviour
                         Debug.Log("Hit" + y); //디버그 되는 y는 timingBoxs 안에 저장된 timingRect의 이름이어야 함
                                               //boomEfectController.CreateBoomButton = true;
                                               //boomEfectController.CreateBoomEfect();
+                        comboManager.ScoreCalc(y + 1);
+                        comboManager.ResetActiveTime();
+                        comboManager.ActiveComboText();
+                        comboManager.UpdateComboText();
+                        comboManager.UpdateScoreText();
+                        comboManager.UpdateComboGauge();
                         return;
                     }
                    
