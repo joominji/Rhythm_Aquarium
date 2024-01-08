@@ -22,15 +22,13 @@ public class TimingManager : MonoBehaviour
     void Start()
     {
 
-        timingBoxs = new Vector2[timingRect.Length]; // new Vector2는 x y 좌표값 아닌가요??
+        timingBoxs = new Vector2[timingRect.Length]; 
 
         for (int i = 0; i < timingRect.Length; i++)
         {
             timingBoxs[i].Set(Center.position.y + timingRect[i].localScale.y / 2,
                               Center.position.y - timingRect[i].localScale.y / 2);
 
-            // 반복문에서 timingRect의 배열 개수만큼 최솟값과 최댓값을 timingBoxs[i] 안에 저장 중
-            // ex) timingBoxs[0] = (최솟값 (원래 좌표값이 음수이기 때문에 +가 최댓값),최솟값)
         }
     
 
@@ -51,6 +49,7 @@ public class TimingManager : MonoBehaviour
                 comboManager.UpdateComboText();
                 comboManager.UpdateScoreText();
                 comboManager.UpdateComboGauge();
+
             }
         }
     }
@@ -65,7 +64,7 @@ public class TimingManager : MonoBehaviour
             if (boxNoteList[i].transform.position.x == ButtonX)
             {
 
-                for (int y = 0; y < timingBoxs.Length; y++) //timingBox의 Length는 timingRect 개수와 일치함
+                for (int y = 0; y < timingBoxs.Length; y++) 
                 {
 
                     if (timingBoxs[y].x >= t_notePosY && timingBoxs[y].y <= t_notePosY)
@@ -74,9 +73,7 @@ public class TimingManager : MonoBehaviour
                         //if()
                         Destroy(boxNoteList[i]);
                         boxNoteList.RemoveAt(i);
-                        Debug.Log("Hit" + y); //디버그 되는 y는 timingBoxs 안에 저장된 timingRect의 이름이어야 함
-                                              //boomEfectController.CreateBoomButton = true;
-                                              //boomEfectController.CreateBoomEfect();
+                        Debug.Log("Hit" + y); 
                         comboManager.ScoreCalc(y + 1);
                         comboManager.ResetActiveTime();
                         comboManager.ActiveComboText();
@@ -85,15 +82,8 @@ public class TimingManager : MonoBehaviour
                         comboManager.UpdateComboGauge();
                         return;
                     }
-                   
                  }
-         
-
             }
-           
         }
-      
-   
     }
-
 }
