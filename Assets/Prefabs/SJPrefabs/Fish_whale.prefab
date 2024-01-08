@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1378019148600425106}
   - component: {fileID: 2379009050630251466}
   - component: {fileID: 6436973794228963438}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fish_whale
   m_TagString: Wahle
   m_Icon: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eceea49a7deba4bb628f7a46a0b506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 100
 --- !u!50 &1378019148600425106
 Rigidbody2D:
   serializedVersion: 4
@@ -123,9 +124,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &2379009050630251466
 BoxCollider2D:
@@ -156,7 +157,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.08, y: 0}

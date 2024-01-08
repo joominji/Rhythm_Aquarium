@@ -15,6 +15,7 @@ public class FishMove : MonoBehaviour
     float Speed;
     int Per;
     Rigidbody2D rb;
+    SpriteRenderer sr;
 
     [SerializeField]
     private int speed;
@@ -22,6 +23,7 @@ public class FishMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         StartPosition(); // 기본 위치 설정
         // 기본 속도
         directionX = 0.01f;
@@ -29,10 +31,10 @@ public class FishMove : MonoBehaviour
         Speed = 0.01f;
         if (gameObject.CompareTag("Wahle"))
         { 
-            GetComponent<SpriteRenderer>().flipX = false;
+            sr.flipX = false;
         } else
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            sr.flipX = true;
         }
         InvokeRepeating("PositionSetting", 0.1f, 2f); // 이동 한계 거리를 2초마다 변경
     }
@@ -49,11 +51,11 @@ public class FishMove : MonoBehaviour
             {
                 if (gameObject.CompareTag("Wahle")) // 고래는 머리가 반대.
                 {
-                    GetComponent<SpriteRenderer>().flipX = true;
+                    sr.flipX = true;
                 }
                 else
                 {
-                    GetComponent<SpriteRenderer>().flipX = false;
+                    sr.flipX = false;
                 }
             }  
         }
@@ -67,11 +69,11 @@ public class FishMove : MonoBehaviour
             {
                 if (gameObject.CompareTag("Wahle"))
                 {
-                    GetComponent<SpriteRenderer>().flipX = false;
+                    sr.flipX = false;
                 }
                 else
                 {
-                    GetComponent<SpriteRenderer>().flipX = true;
+                    sr.flipX = true;
                 }
             }   
         }
@@ -116,22 +118,23 @@ public class FishMove : MonoBehaviour
         DirectionSwitch();
         
         rb.velocity = new Vector3(directionX  * speed, directionY * speed, 0); // 이동
+        rb.angularVelocity = 0f; // 회전 방지
     }
 
     // 벽에 닿을 경우 이동을 제한
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Wall")
+        if (other.gameObject.CompareTag("Wall"))
         {
             directionX *= -1f;
             directionY *= -1f;
 
-            if (GetComponent<SpriteRenderer>().flipX == true)
+            if (sr.flipX == true)
             {
-                GetComponent<SpriteRenderer>().flipX = false;
+                sr.flipX = false;
             } else
             {
-                GetComponent<SpriteRenderer>().flipX = true;
+                sr.flipX = true;
             }
         }
     }
@@ -159,21 +162,21 @@ public class FishMove : MonoBehaviour
         {
             if (directionX >= 0.01f)
             {
-                GetComponent<SpriteRenderer>().flipX = false;
+                sr.flipX = false;
             }
             else if (directionX <= -0.01f)
             {
-                GetComponent<SpriteRenderer>().flipX = true;
+                sr.flipX = true;
             }
         } else
         {
             if (directionX >= 0.01f)
             {
-                GetComponent<SpriteRenderer>().flipX = true;
+                sr.flipX = true;
             }
             else if (directionX <= -0.01f)
             {
-                GetComponent<SpriteRenderer>().flipX = false;
+                sr.flipX = false;
             }
         }
             
