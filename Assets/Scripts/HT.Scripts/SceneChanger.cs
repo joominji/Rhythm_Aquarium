@@ -22,7 +22,7 @@ public class SceneChanger : MonoBehaviour
     }
     public void GoAquariumScene()
     {
-        SceneManager.LoadScene("아쿠아리움 신 이름");
+        SceneManager.LoadScene("Aquarium");
     }
     public void GoEditScene()
     {
