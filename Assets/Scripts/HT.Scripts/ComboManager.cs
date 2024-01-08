@@ -44,61 +44,61 @@ public class ComboManager : MonoBehaviour
 
     private void Update()
     {
-        if (uIManager.pause == false)
-        {
-            //작동 확인을 위한 임시입니다.
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
-                //판정 
-                //1 = 퍼펙트
-                //2 = 그레이트
-                //3 = 굿
-                //4 = 배드
-                //5 = 미쓰
-                //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
-                ScoreCalc(1);
-                ResetActiveTime();
-                ActiveComboText();
-                UpdateComboText();
-                UpdateScoreText();
-                UpdateComboGauge();
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
-                //판정 
-                //1 = 퍼펙트
-                //2 = 그레이트
-                //3 = 굿
-                //4 = 배드
-                //5 = 미쓰
-                //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
-                ScoreCalc(2);
-                ResetActiveTime();
-                ActiveComboText();
-                UpdateComboText();
-                UpdateScoreText();
-                UpdateComboGauge();
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
-                //판정 
-                //1 = 퍼펙트
-                //2 = 그레이트
-                //3 = 굿
-                //4 = 배드
-                //5 = 미쓰
-                //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
-                ScoreCalc(0);
-                ResetActiveTime();
-                ActiveComboText();
-                UpdateComboText();
-                UpdateScoreText();
-                UpdateComboGauge();
-            }
-        }
+        //if (uIManager.pause == false)
+        //{
+        //    //작동 확인을 위한 임시입니다.
+        //    if (Input.GetKeyDown(KeyCode.A))
+        //    {
+        //        //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
+        //        //판정 
+        //        //1 = 퍼펙트
+        //        //2 = 그레이트
+        //        //3 = 굿
+        //        //4 = 배드
+        //        //5 = 미쓰
+        //        //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
+        //        ScoreCalc(1);
+        //        ResetActiveTime();
+        //        ActiveComboText();
+        //        UpdateComboText();
+        //        UpdateScoreText();
+        //        UpdateComboGauge();
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.S))
+        //    {
+        //        //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
+        //        //판정 
+        //        //1 = 퍼펙트
+        //        //2 = 그레이트
+        //        //3 = 굿
+        //        //4 = 배드
+        //        //5 = 미쓰
+        //        //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
+        //        ScoreCalc(2);
+        //        ResetActiveTime();
+        //        ActiveComboText();
+        //        UpdateComboText();
+        //        UpdateScoreText();
+        //        UpdateComboGauge();
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.D))
+        //    {
+        //        //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
+        //        //판정 
+        //        //1 = 퍼펙트
+        //        //2 = 그레이트
+        //        //3 = 굿
+        //        //4 = 배드
+        //        //5 = 미쓰
+        //        //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
+        //        ScoreCalc(0);
+        //        ResetActiveTime();
+        //        ActiveComboText();
+        //        UpdateComboText();
+        //        UpdateScoreText();
+        //        UpdateComboGauge();
+        //    }
+        //}
         
 
         activeTime = activeTime - Time.deltaTime;
@@ -108,7 +108,7 @@ public class ComboManager : MonoBehaviour
         }
     }
 
-    private void ResetActiveTime()
+    public void ResetActiveTime()
     {
         activeTime = 0.5f;  //텍스트 활성화 시간 수정은 여기서
     }

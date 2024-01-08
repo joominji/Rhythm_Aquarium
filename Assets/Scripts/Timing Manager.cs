@@ -9,6 +9,8 @@ public class TimingManager : MonoBehaviour
     [SerializeField] Transform[] timingRect = null;
     public GameObject note;
     BoomEfectController boomEfectController;
+    [SerializeField]
+    ComboManager comboManager;
 
     Vector2[] timingBoxs = null;
     
@@ -46,14 +48,22 @@ public class TimingManager : MonoBehaviour
                     Destroy(boxNoteList[i]);
                     boxNoteList.RemoveAt(i);
                     Debug.Log("Hit" + y); //디버그 되는 y는 timingBoxs 안에 저장된 timingRect의 이름이어야 함
-                    //boomEfectController.CreateBoomButton = true;
-                    //boomEfectController.CreateBoomEfect();
+                                          //boomEfectController.CreateBoomButton = true;
+                                          //boomEfectController.CreateBoomEfect();0.1.2.3 0퍼 1그 2굿 3배
+                    comboManager.ScoreCalc(y+1);
+                    comboManager.ResetActiveTime();
+                    comboManager.ActiveComboText();
+                    comboManager.UpdateComboText();
+                    comboManager.UpdateScoreText();
+                    comboManager.UpdateComboGauge();
+
                     return;
                 }
+
                 //예상 필요 판정 조건
                 //: perfectRect.y(최소 ,  최대) = t_notePosY =>  perfect
                 // greatRect.y(최소, 최대) = t_notePosY && perfectRect.y != t_notePosY => great
-                
+
             }
         }
         Debug.Log("Miss");
