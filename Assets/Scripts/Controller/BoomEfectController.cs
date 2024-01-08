@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoomEfectController : MonoBehaviour
 {
-    [SerializeField] public bool createBoomButton = false;
+    [SerializeField] public bool CreateBoomButton { get; set; }
+    private bool createBoomButton = false;
     [SerializeField] private ParticleSystem BoomEfectSystem;
 
     public void CreateBoomEfect()

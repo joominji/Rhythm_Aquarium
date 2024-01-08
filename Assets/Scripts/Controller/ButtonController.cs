@@ -26,7 +26,7 @@ public class ButtonController : MonoBehaviour
            
             theSR.sprite = PressedImage;
             timingManager.CheckTiming();
-            boomEfectController.CreateBoomEfect();
+    
 
         }
         if (Input.GetKeyUp(KeyToPress))
