@@ -185,7 +185,7 @@ public class FishMove : MonoBehaviour
     // 이동 한계 거리 변경 함수
     private void PositionSetting()
     {
-        Speed = Random.Range(0.01f, 0.05f); // 속도 조절
+        Speed = 0.02f; // 속도 조절
         PlusX = transform.position.x + Random.Range(0.4f, 10f); // X좌표 + 한계값
         MinusX = transform.position.x - Random.Range(0.4f, 10f); // X좌표 - 한계값
         if (gameObject.CompareTag("Wahle")) // 고래일 경우
