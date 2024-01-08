@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public string songSelected;
     public GoldData golddata;
-    public TMP_Text gold;
 
     private void Awake()
     {
@@ -33,10 +32,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        UpdateGoldText();
-    }
 
     private void Update()
     {
@@ -80,9 +75,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateGoldText()
-    {
-        gold.text = GameManager.instance.golddata.gold.ToString();
-    }
+    
 
 }
