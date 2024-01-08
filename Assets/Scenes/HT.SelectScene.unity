@@ -823,7 +823,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 722061483}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999977
+  m_Size: 0.9999963
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1892,6 +1892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gold
       objectReference: {fileID: 0}
+    - target: {fileID: 1205157869120719461, guid: 87b2c0db281b9b646b8ff1a81076e343, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6790617571997482764, guid: 87b2c0db281b9b646b8ff1a81076e343, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2620,7 +2624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00010175219, y: 0}
+  m_AnchoredPosition: {x: 0.00003541196, y: 0}
   m_SizeDelta: {x: -1920, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1955398998
