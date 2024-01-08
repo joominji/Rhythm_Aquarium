@@ -40,7 +40,7 @@ public class TimingManager : MonoBehaviour
         for (int i = 0; i < boxNoteList.Count; i++)
         {
             float t_notePosY = boxNoteList[i].transform.position.y;
-            if (t_notePosY == -8)
+            if (t_notePosY <= -8)
             {
                 Destroy(boxNoteList[i]);
                 boxNoteList.RemoveAt(i);
