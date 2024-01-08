@@ -31,30 +31,23 @@ public class TimingManager : MonoBehaviour
             // 반복문에서 timingRect의 배열 개수만큼 최솟값과 최댓값을 timingBoxs[i] 안에 저장 중
             // ex) timingBoxs[0] = (최솟값 (원래 좌표값이 음수이기 때문에 +가 최댓값),최솟값)
         }
-        Debug.Log(timingBoxs[0].x);
+    
 
 
     }
-    //public void Checktracks()
-    //{
-    //    for (int i = 0; i < boxNoteList.Length; i++)
-    //    {
-    //        float t_noteposx = boxNoteList[i].transform.position.x;
-    //        for (int x = 0; x < JudgeBoxs.Length; x++)
-    //        {
-    //            if (JudgeBoxs[x].transform.position.x == t_noteposx)
-    //            {
-    //                isMachtedNote = true;
-                      //return;
-
-    //            }
-    //          
-    //                isMachtedNote = false;
-    //           
-    //        }
-    //    }
-
-    //}
+    private void Update()
+    {
+        for (int i = 0; i < boxNoteList.Count; i++)
+        {
+            float t_notePosY = boxNoteList[i].transform.position.y;
+            if (t_notePosY == -8)
+            {
+                Destroy(boxNoteList[i]);
+                boxNoteList.RemoveAt(i);
+                Debug.Log("Miss");
+            }
+        }
+    }
     public void CheckTiming()//float x 
     {
         
@@ -85,15 +78,7 @@ public class TimingManager : MonoBehaviour
          
 
             }
-            else if (t_notePosY <= -11)
-            {
-                Destroy(boxNoteList[i]);
-                boxNoteList.RemoveAt(i);
-                Debug.Log("Miss");
-                //예상 필요 판정 조건
-                //: perfectRect.y(최소 ,  최대) = t_notePosY =>  perfect
-                // greatRect.y(최소, 최대) = t_notePosY && perfectRect.y != t_notePosY => great
-            }
+           
         }
       
    
