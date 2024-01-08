@@ -36,7 +36,7 @@ public class OptionController : MonoBehaviour
     }
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "HT")
+        if (SceneManager.GetActiveScene().name == "PlayScene")
         {
             bgmAudioSource.Stop();
         }

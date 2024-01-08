@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
         comboManager = GetComponent<ComboManager>();
         clearWindow.gameObject.SetActive(false);
         pauseWindow.gameObject.SetActive(false);
-        playWindow.gameObject.SetActive(false);
+        playWindow.gameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;            
     }
 
@@ -34,10 +34,12 @@ public class UIManager : MonoBehaviour
     {
         if (videoPlayer != null && videoPlayer.isPrepared)
         {
-            
-           
-            loadingWindow.gameObject.SetActive(false);
-            playWindow.gameObject.SetActive(true);
+
+            if (nowPlayingSlider.value != nowPlayingSlider.maxValue)
+            {
+                loadingWindow.gameObject.SetActive(false);
+                playWindow.gameObject.SetActive(true);
+            }
 
             nowPlayingSlider.maxValue = Mathf.FloorToInt((float)videoPlayer.clip.length);
 
@@ -53,6 +55,7 @@ public class UIManager : MonoBehaviour
                 Debug.Log("곡 끝남");
                 comboManager.UpdateResult();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
                 Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다.
+                
             }
         }
     }
@@ -62,11 +65,15 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ChangeWindow()
     {
-        clearWindow.gameObject.SetActive(true);
-        playWindow.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.None;
+        if (playWindow.activeInHierarchy) 
+        {
+            GameManager.instance.golddata.gold += 2000;
+            playWindow.gameObject.SetActive(false);
+            clearWindow.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
-
+    
     /// <summary>
     /// 시간을 시간으로 보이게 해주기 위한 함수입니다.
     /// </summary>
@@ -129,10 +136,5 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
-    }
-
-    public void UpdateGold()
-    {
-        GameManager.instance.golddata.gold += 2000;
     }
 }

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.LoadSongData:
                 {
-                    SceneManager.LoadScene("HT");
+                    SceneManager.LoadScene("PlayScene");
                     SongDataLoader.Load(songSelected);
                     state = GameStates.WaitUntilSongDataLoaded;
                 }

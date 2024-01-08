@@ -305,6 +305,7 @@ public class ComboManager : MonoBehaviour
         CountText[3].text = badCount.ToString("D3");
         CountText[4].text = missCount.ToString("D3");
 
+        
         //perfactCountText.text = /*(PerfactCount == 0) ? (string)"000" :*/ perfactCount.ToString("D3");
         //greatCountText.text = /*(GreatCount == 0) ? (string)"000" :*/ greatCount.ToString("D3");
         //goodCountText.text = /*(GoodCount == 0) ? (string)"000" :*/ goodCount.ToString("D3");
