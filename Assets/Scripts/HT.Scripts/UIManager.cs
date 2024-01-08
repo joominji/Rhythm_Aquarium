@@ -27,26 +27,29 @@ public class UIManager : MonoBehaviour
         clearWindow.gameObject.SetActive(false);
         pauseWindow.gameObject.SetActive(false);
         playWindow.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;            
     }
 
     private void Update()
     {
         if (videoPlayer != null && videoPlayer.isPrepared)
         {
+            
+           
             loadingWindow.gameObject.SetActive(false);
             playWindow.gameObject.SetActive(true);
-            Debug.Log("Update" + videoPlayer.clip.name);
-            nowPlayingSlider.maxValue = (float)videoPlayer.length;
+            nowPlayingSlider.maxValue = Mathf.FloorToInt((float)videoPlayer.clip.length);
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleCursor(!pause);
             }
-            currentTime = (float)videoPlayer.time;
+            currentTime = Mathf.FloorToInt((float)videoPlayer.time);
             currentTimeText.text = FormatTime(currentTime);
             nowPlayingSlider.value = currentTime;
             if (nowPlayingSlider.value == nowPlayingSlider.maxValue)//곡이 끝날 시입니다. 게임 오버시도 넣어야 합니다.
             {
+                Debug.Log("곡 끝남");
                 comboManager.UpdateResult();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
                 Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다.
             }

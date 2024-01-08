@@ -324,7 +324,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6821,6 +6821,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultImage: {fileID: 21300000, guid: d7a5fd3c81d99ed48b196cae4b500b6a, type: 3}
   PressedImage: {fileID: 21300000, guid: 6c3e09a5e4779b34db8191f0a75a9ef7, type: 3}
+  JudgeBoxs: []
+  note: {fileID: 0}
   KeyToPress: 107
 --- !u!212 &629933849
 SpriteRenderer:
@@ -6932,7 +6934,8 @@ MonoBehaviour:
   - {fileID: 1597503770}
   - {fileID: 1909694340}
   - {fileID: 1395408175}
-  note: {fileID: 0}
+  isMachtedNote: 0
+  JudgeBoxs: []
   comboManager: {fileID: 1265120045}
 --- !u!1 &645913780
 GameObject:
@@ -6989,7 +6992,8 @@ MonoBehaviour:
   - {fileID: 1597503770}
   - {fileID: 1909694340}
   - {fileID: 1395408175}
-  note: {fileID: 0}
+  isMachtedNote: 0
+  JudgeBoxs: []
   comboManager: {fileID: 0}
 --- !u!1 &660344060
 GameObject:
@@ -7468,6 +7472,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultImage: {fileID: 21300000, guid: d7a5fd3c81d99ed48b196cae4b500b6a, type: 3}
   PressedImage: {fileID: 21300000, guid: 6c3e09a5e4779b34db8191f0a75a9ef7, type: 3}
+  JudgeBoxs: []
+  note: {fileID: 0}
   KeyToPress: 108
 --- !u!212 &732084020
 SpriteRenderer:
@@ -7749,6 +7755,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultImage: {fileID: 21300000, guid: d7a5fd3c81d99ed48b196cae4b500b6a, type: 3}
   PressedImage: {fileID: 21300000, guid: 6c3e09a5e4779b34db8191f0a75a9ef7, type: 3}
+  JudgeBoxs: []
+  note: {fileID: 0}
   KeyToPress: 97
 --- !u!212 &787931164
 SpriteRenderer:
@@ -18062,7 +18070,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -18487,6 +18495,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultImage: {fileID: 21300000, guid: d7a5fd3c81d99ed48b196cae4b500b6a, type: 3}
   PressedImage: {fileID: 21300000, guid: 6c3e09a5e4779b34db8191f0a75a9ef7, type: 3}
+  JudgeBoxs: []
+  note: {fileID: 0}
   KeyToPress: 106
 --- !u!212 &1001851370
 SpriteRenderer:
@@ -24815,7 +24825,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -160, y: 0}
+  m_AnchoredPosition: {x: -100, y: 0}
   m_SizeDelta: {x: 20, y: -920}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1366955927
@@ -30163,7 +30173,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -35786,6 +35796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultImage: {fileID: 21300000, guid: d7a5fd3c81d99ed48b196cae4b500b6a, type: 3}
   PressedImage: {fileID: 21300000, guid: 6c3e09a5e4779b34db8191f0a75a9ef7, type: 3}
+  JudgeBoxs: []
+  note: {fileID: 0}
   KeyToPress: 115
 --- !u!212 &1663481368
 SpriteRenderer:
@@ -36383,6 +36395,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultImage: {fileID: 21300000, guid: d7a5fd3c81d99ed48b196cae4b500b6a, type: 3}
   PressedImage: {fileID: 21300000, guid: 6c3e09a5e4779b34db8191f0a75a9ef7, type: 3}
+  JudgeBoxs: []
+  note: {fileID: 0}
   KeyToPress: 100
 --- !u!212 &1953587364
 SpriteRenderer:
@@ -36520,7 +36534,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -42560,7 +42574,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -42789,7 +42803,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

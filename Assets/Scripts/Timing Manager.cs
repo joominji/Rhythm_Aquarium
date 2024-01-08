@@ -59,16 +59,8 @@ public class TimingManager : MonoBehaviour
 
                     return;
                 }
-
-                //예상 필요 판정 조건
-                //: perfectRect.y(최소 ,  최대) = t_notePosY =>  perfect
-                // greatRect.y(최소, 최대) = t_notePosY && perfectRect.y != t_notePosY => great
-
             }
         }
         Debug.Log("Miss");
     }
-
-  
-   
 }
