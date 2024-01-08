@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a7d35b4a6180584ca9c10cfd0c01e1a, type: 3}
-  m_Name: ItemData_Fish3
+  m_Name: Krill_1
   m_EditorClassIdentifier: 
-  itemName: "\uD798\uC774\uC388 \uBB3C\uACE0\uAE30"
-  price: 7000
+  itemName: "\uD06C\uB9B4"
+  price: 10000
   isEquiped: 0
-  image: {fileID: 21300000, guid: 38cf9d7a09a029942b3f56067f874a23, type: 3}
+  image: {fileID: 21300000, guid: a68c0ce123144f34c995b6388924d680, type: 3}
