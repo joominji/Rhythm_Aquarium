@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameStates state;
     public static GameManager instance;
     public string songSelected;
+    public GoldData golddata;
 
     private void Awake()
     {
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+
     private void Update()
     {
         switch (state)
@@ -37,7 +41,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.LoadSongData:
                 {
-                    SceneManager.LoadScene("JH");
+                    SceneManager.LoadScene("PlayScene");
                     SongDataLoader.Load(songSelected);
                     state = GameStates.WaitUntilSongDataLoaded;
                 }
@@ -52,8 +56,12 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.StartGame:
                 {
-                    NoteManager.instance.StartCreateNote(SongDataLoader.dataLoaded.notes);
-                    state = GameStates.WaitUntilGameFinished;
+                    if (MVPlayer.instance != null)
+                    {
+                        MVPlayer.instance.Play(SongDataLoader.clipLoaded);
+                        NoteManager.instance.StartCreateNote(SongDataLoader.dataLoaded.notes);
+                        state = GameStates.WaitUntilGameFinished;
+                    }
                 }
                 break;
             case GameStates.WaitUntilGameFinished:
@@ -66,5 +74,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    
 
 }

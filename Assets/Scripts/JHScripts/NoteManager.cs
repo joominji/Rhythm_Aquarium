@@ -16,15 +16,21 @@ public class NoteManager : MonoBehaviour
     [SerializeField] private Transform hitterPoint;
     public float noteFallingDistance => transform.position.y - hitterPoint.position.y;
     public float noteFallingTime => noteFallingDistance / PlaySetting.speed; // 거리 / 속도 = 시간
+    TimingManager timingManager;
+    
 
     private void Awake()
     {
         instance = this;
         Note[] notes = GetComponentsInChildren<Note>();
+       
         for (int i = 0; i < notes.Length; i++)
         {
             _notes.Add(notes[i].key, notes[i]);
+  
+
         }
+       
     }
 
     public void StartCreateNote(IEnumerable<NoteData> noteDatas)
@@ -52,6 +58,8 @@ public class NoteManager : MonoBehaviour
             if (noteDataQueue.Peek().time < (Time.time) - timeCheck)
             {
                 _notes[noteDataQueue.Dequeue().key].NoteCreate();
+                
+
             }
             else
             {
@@ -59,4 +67,5 @@ public class NoteManager : MonoBehaviour
             }
         }
     }
+   
 }

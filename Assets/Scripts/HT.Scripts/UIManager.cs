@@ -1,103 +1,140 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
 
 public class UIManager : MonoBehaviour
 {
     private ComboManager comboManager;
-    public TextMeshProUGUI CurrentTimeText;
-    public AudioSource AudioSource;
-    public GameObject ClearWindow;
-    public GameObject PlayWindow;
-    public GameObject PauseWindow;
-    public Slider NowPlayingSlider;
+    public TextMeshProUGUI currentTimeText;
+    public VideoPlayer videoPlayer;
+    public GameObject loadingWindow;
+    public GameObject clearWindow;
+    public GameObject playWindow;
+    public GameObject pauseWindow;
+    public Slider nowPlayingSlider;
+    public NoteMove noteMove;
 
-    private float CurrentTime;
-    private bool Pause = false;
-
+    private float currentTime;
+    public bool pause;
     void Start()
     {
+        pause = false;
         comboManager = GetComponent<ComboManager>();
-        ClearWindow.gameObject.SetActive(false);
-        PauseWindow.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        NowPlayingSlider.maxValue = AudioSource.clip.length;
-        AudioSource.loop = false;
+        clearWindow.gameObject.SetActive(false);
+        pauseWindow.gameObject.SetActive(false);
+        playWindow.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;            
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (videoPlayer != null && videoPlayer.isPrepared)
         {
-            ToggleCursor(!Pause);
-        }
-        CurrentTime = AudioSource.time;
-        CurrentTimeText.text = FormatTime(CurrentTime);
-        NowPlayingSlider.value = AudioSource.time;
 
-        if (NowPlayingSlider.value == NowPlayingSlider.maxValue)//곡이 끝날 시로 변경 예정입니다. 일단은 잘 작동이 됩니다.
-        {
-            comboManager.UpdateCount();
-            Invoke("ChangeWindow", 1.5f);
-            AudioSource.clip = null;
+            if (nowPlayingSlider.value != nowPlayingSlider.maxValue)
+            {
+                loadingWindow.gameObject.SetActive(false);
+                playWindow.gameObject.SetActive(true);
+            }
+
+            nowPlayingSlider.maxValue = Mathf.FloorToInt((float)videoPlayer.clip.length);
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ToggleCursor(!pause);
+            }
+            currentTime = Mathf.FloorToInt((float)videoPlayer.time);
+            currentTimeText.text = FormatTime(currentTime);
+            nowPlayingSlider.value = currentTime;
+            if (nowPlayingSlider.value == nowPlayingSlider.maxValue)//곡이 끝날 시입니다. 게임 오버시도 넣어야 합니다.
+            {
+                Debug.Log("곡 끝남");
+                comboManager.UpdateResult();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
+                Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다.
+                
+            }
         }
     }
 
-    private void ChangeWindow()
+    /// <summary>
+    /// 클리어 화면으로 전환 해주는 함수입니다
+    /// </summary>
+    public void ChangeWindow()
     {
-        ClearWindow.gameObject.SetActive(true);
-        PlayWindow.gameObject.SetActive(false);
+        if (playWindow.activeInHierarchy) 
+        {
+            GameManager.instance.golddata.gold += 2000;
+            playWindow.gameObject.SetActive(false);
+            clearWindow.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
+    
+    /// <summary>
+    /// 시간을 시간으로 보이게 해주기 위한 함수입니다.
+    /// </summary>
     string FormatTime(float timeInSeconds)
     {
         // 초를 분:초 형식의 문자열로 변환
-        int minutes = Mathf.FloorToInt(timeInSeconds / 60f);
-        int seconds = Mathf.FloorToInt(timeInSeconds % 60f);
+        float minutes = Mathf.FloorToInt(timeInSeconds / 60f);
+        float seconds = Mathf.FloorToInt(timeInSeconds % 60f);
         return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    private void ChangeMusicPauseState()
+    /// <summary>
+    /// 음악의 일시정지 여부를 바꿔주는 함수입니다.
+    /// </summary>
+    private void ChangeVideoPauseState()
     {
-        if (IsMusicPlaying())
+        if (IsVideoPlaying())
         {
-            PauseMusic();
+            PauseVideo();
         }
         else
         {
-            PlayMusic();
+            PlayVideo();
         }
     }
 
-    private bool IsMusicPlaying()
+    /// <summary>
+    /// 음악이 재생중인지 판단해주는 함수입니다.
+    /// </summary>
+    private bool IsVideoPlaying()
     {
-        return AudioSource.isPlaying;
+        return videoPlayer.isPlaying;
     }
-
-    private void PauseMusic()
+    /// <summary>
+    /// 음악 일시정지입니다.
+    /// </summary>
+    private void PauseVideo()
     {
-        AudioSource.Pause();
+        videoPlayer.Pause();
     }
-
-    private void PlayMusic()
+    /// <summary>
+    /// 음악 재생입니다.
+    /// </summary>
+    private void PlayVideo()
     {
-        AudioSource.Play();
+        videoPlayer.Play();
     }
 
     public void ToggleCursor(bool toggle)
     {
-        ChangeMusicPauseState();
-        PauseWindow.gameObject.SetActive(toggle);
+        ChangeVideoPauseState();
+        pauseWindow.gameObject.SetActive(toggle);
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
-        Pause = !Pause;
-    }
-
-    public void GoSelectScene()
-    {
-        SceneManager.LoadScene("곡 선택 신 이름");
+        pause = !pause;
+        if (Time.timeScale > 0.0f)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 }

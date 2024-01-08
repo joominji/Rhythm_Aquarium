@@ -13,7 +13,6 @@ public class NoteMove : MonoBehaviour
 
     private void Move()
     {
-        //transform.Translate(Vector3.down * noteSpeed * Time.fixedDeltaTime);
         transform.position += Vector3.down * noteSpeed * Time.fixedDeltaTime;
     }
 }
