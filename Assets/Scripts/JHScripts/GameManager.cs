@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameStates state;
     public static GameManager instance;
     public string songSelected;
+    public GoldData golddata;
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
 
     private void Update()
     {
@@ -70,5 +74,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    
 
 }

@@ -312,34 +312,35 @@ public class ComboManager : MonoBehaviour
         //missCountText.text = /*(MissCount == 0) ? (string)"000" :*/ missCount.ToString("D3");
     }
 
-    public void Retry()
-    {
-        if (uIManager.playWindow.activeInHierarchy == false)
-        {
-            uIManager.ChangeWindow();
-        }
-        perfactCount = 0;
-        greatCount = 0;
-        goodCount = 0;
-        badCount = 0;
-        missCount = 0;
-        combo = 0;
-        uIManager.playWindow.SetActive(true);
-        uIManager.clearWindow.SetActive(false);
-        uIManager.pauseWindow.SetActive(false);
-        uIManager.videoPlayer.time = 0f;
-        uIManager.videoPlayer.Play();
-        comboGauge.value = 0;
-        uIManager.pause = false;
+    //폐기
+    //public void Retry()
+    //{
+    //    if (uIManager.playWindow.activeInHierarchy == false)
+    //    {
+    //        uIManager.ChangeWindow();
+    //    }
+    //    perfactCount = 0;
+    //    greatCount = 0;
+    //    goodCount = 0;
+    //    badCount = 0;
+    //    missCount = 0;
+    //    combo = 0;
+    //    uIManager.playWindow.SetActive(true);
+    //    uIManager.clearWindow.SetActive(false);
+    //    uIManager.pauseWindow.SetActive(false);
+    //    uIManager.videoPlayer.time = 0f;
+    //    uIManager.videoPlayer.Play();
+    //    comboGauge.value = 0;
+    //    uIManager.pause = false;
 
-        calculatedScore = 0;
-        UpdateScoreText();
-        if (Time.timeScale <= 0.0)
-        {
-            Time.timeScale = 1.0f;
-        }
+    //    calculatedScore = 0;
+    //    UpdateScoreText();
+    //    if (Time.timeScale <= 0.0)
+    //    {
+    //        Time.timeScale = 1.0f;
+    //    }
         
-        NoteManager.instance.StartCreateNote(SongDataLoader.dataLoaded.notes);
-        //노트 시작부터 재생성 기능 추가 필요합니다.
-    }
+    //    NoteManager.instance.StartCreateNote(SongDataLoader.dataLoaded.notes);
+    //    //노트 시작부터 재생성 기능 추가 필요합니다.
+    //}
 }

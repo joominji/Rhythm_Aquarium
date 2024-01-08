@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
-
+    public GameObject fishSpawner;
     public InventoryData inventorydata;
     public ShopData shopdata;
     public GoldData golddata;

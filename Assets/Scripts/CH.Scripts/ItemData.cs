@@ -9,4 +9,6 @@ public class ItemData : ScriptableObject
     public int price;
     public bool isEquiped;
     public Sprite image;
+    public GameObject fishObject;
+    public GameObject instantiatedFish;
 }

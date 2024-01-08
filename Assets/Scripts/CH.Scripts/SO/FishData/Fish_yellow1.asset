@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a7d35b4a6180584ca9c10cfd0c01e1a, type: 3}
-  m_Name: ItemData_Fish4
+  m_Name: Fish_yellow1
   m_EditorClassIdentifier: 
-  itemName: "\uAC1C\uCA4C\uB294 \uBB3C\uACE0\uAE30"
-  price: 10000
+  itemName: "\uB178\uB780 \uBB3C\uACE0\uAE30"
+  price: 1500
   isEquiped: 0
-  image: {fileID: 21300000, guid: ade2e807cfa950047920b6340c428191, type: 3}
+  image: {fileID: 21300000, guid: 1ea3d76017adfea46876b32cf70fcbd2, type: 3}
+  fishObject: {fileID: 1781415312749101211, guid: f0680cdc2e9fd65409bd41eece94649a, type: 3}

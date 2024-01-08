@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HT.StartScene.unity
     guid: a115ec91fee2c3d4aa70e6c782d4b08a
+  - enabled: 1
+    path: Assets/Scenes/Aquarium.unity
+    guid: 3b69c204d5a2dfd4281de92075d6755b
   m_configObjects: {}
