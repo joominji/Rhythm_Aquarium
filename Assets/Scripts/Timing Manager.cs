@@ -63,7 +63,7 @@ public class TimingManager : MonoBehaviour
             float t_notePosY = boxNoteList[i].transform.position.y;
             float t_notePosX = boxNoteList[i].transform.position.x;
 
-            if(boxNoteList[i].transform.position.x == ButtonX)
+            if (boxNoteList[i].transform.position.x == ButtonX)
             {
 
                 for (int y = 0; y < timingBoxs.Length; y++) //timingBox의 Length는 timingRect 개수와 일치함
@@ -80,14 +80,23 @@ public class TimingManager : MonoBehaviour
                                               //boomEfectController.CreateBoomEfect();
                         return;
                     }
-                    //예상 필요 판정 조건
-                    //: perfectRect.y(최소 ,  최대) = t_notePosY =>  perfect
-                    // greatRect.y(최소, 최대) = t_notePosY && perfectRect.y != t_notePosY => great
-                }
+                   
+                 }
+         
+
+            }
+            else if (t_notePosY <= -11)
+            {
+                Destroy(boxNoteList[i]);
+                boxNoteList.RemoveAt(i);
+                Debug.Log("Miss");
+                //예상 필요 판정 조건
+                //: perfectRect.y(최소 ,  최대) = t_notePosY =>  perfect
+                // greatRect.y(최소, 최대) = t_notePosY && perfectRect.y != t_notePosY => great
             }
         }
       
-        Debug.Log("Miss");
+   
     }
 
 }

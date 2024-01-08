@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         {
             loadingWindow.gameObject.SetActive(false);
             playWindow.gameObject.SetActive(true);
-            Debug.Log("Update" + videoPlayer.clip.name);
+            
             nowPlayingSlider.maxValue = (float)videoPlayer.length;
             if (Input.GetKeyDown(KeyCode.Escape))
             {
