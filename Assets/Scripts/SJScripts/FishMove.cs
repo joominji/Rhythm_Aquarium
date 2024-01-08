@@ -14,9 +14,14 @@ public class FishMove : MonoBehaviour
     float MinusY;
     float Speed;
     int Per;
+    Rigidbody2D rb;
+
+    [SerializeField]
+    private int speed;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         StartPosition(); // 기본 위치 설정
         // 기본 속도
         directionX = 0.01f;
@@ -84,19 +89,6 @@ public class FishMove : MonoBehaviour
                 directionY = 0 + Speed;
             }
         }
-        else if (gameObject.CompareTag("NotFish")) // 물고기가 아닐 경우
-        {
-            // 한계 거리까지 닿았을 때 반대쪽인 아래로 이동
-            if (transform.position.y > -3.5f)
-            {
-                directionY = 0.01f;
-            }
-            // 한계 거리까지 닿았을 때 반대쪽인 위로 이동
-            if (transform.position.y < MinusY)
-            {
-                directionY = -0.01f;
-            }
-        }
         else // 일반 물고기일 경우
         {
             // 한계 거리까지 닿았을 때 반대쪽인 아래로 이동
@@ -122,8 +114,8 @@ public class FishMove : MonoBehaviour
         }
         // 방향 버그 수정
         DirectionSwitch();
-
-        transform.position += new Vector3(directionX, directionY, 0); // 이동
+        
+        rb.velocity = new Vector3(directionX  * speed, directionY * speed, 0); // 이동
     }
 
     // 벽에 닿을 경우 이동을 제한
@@ -152,9 +144,6 @@ public class FishMove : MonoBehaviour
         if (gameObject.CompareTag("Wahle")) // 고래일 경우
         {
             FirstY = Random.Range(-3.2f, 3.25f);
-        } else if (gameObject.CompareTag("NotFish")) // 물고기가 아닐 경우
-        {
-            FirstY = -3.75f;
         } else // 일반 물고기일 경우
         {
             FirstY = Random.Range(-4f, 3.25f);
@@ -193,18 +182,14 @@ public class FishMove : MonoBehaviour
     // 이동 한계 거리 변경 함수
     private void PositionSetting()
     {
-        Speed = Random.Range(0.01f, 0.1f); // 속도 조절
+        Speed = Random.Range(0.01f, 0.05f); // 속도 조절
         PlusX = transform.position.x + Random.Range(0.4f, 10f); // X좌표 + 한계값
         MinusX = transform.position.x - Random.Range(0.4f, 10f); // X좌표 - 한계값
         if (gameObject.CompareTag("Wahle")) // 고래일 경우
         {
             PlusY = transform.position.y + Random.Range(0.4f, 8f); // Y좌표 + 한계값
             MinusY = 0.1f; // Y좌표 - 한계값
-        } else if (gameObject.CompareTag("NotFish")) // 물고기가 아닐 경우
-        {
-            PlusY = 0.1f; // Y좌표 + 한계값
-            MinusY = transform.position.y - Random.Range(0.4f, 8f); // Y좌표 - 한계값
-        } else
+        }else
         {
             PlusY = transform.position.y + Random.Range(0.4f, 8f); // Y좌표 + 한계값
             MinusY = transform.position.y - Random.Range(0.4f, 8f); // Y좌표 - 한계값
