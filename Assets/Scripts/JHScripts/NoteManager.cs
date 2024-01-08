@@ -54,7 +54,6 @@ public class NoteManager : MonoBehaviour
             if (noteDataQueue.Peek().time < (Time.time) - timeCheck)
             {
                 _notes[noteDataQueue.Dequeue().key].NoteCreate();
-                
             }
             else
             {

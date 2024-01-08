@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
             Destroy(instance.gameObject);
         }
         instance = this;
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameStates.LoadSongData:
                 {
-                    SceneManager.LoadScene("JH");
+                    SceneManager.LoadScene("HT");
                     SongDataLoader.Load(songSelected);
                     state = GameStates.WaitUntilSongDataLoaded;
                 }

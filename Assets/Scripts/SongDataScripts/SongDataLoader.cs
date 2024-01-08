@@ -7,13 +7,12 @@ public static class SongDataLoader
 {
     public static SongData dataLoaded;
     public static VideoClip clipLoaded;
-    public static AudioSource audioLoaded;
 
     public static bool isLoaded
     {
         get
         {
-            return dataLoaded != null && clipLoaded || audioLoaded != null;
+            return dataLoaded != null && clipLoaded != null;
         }
     }
 

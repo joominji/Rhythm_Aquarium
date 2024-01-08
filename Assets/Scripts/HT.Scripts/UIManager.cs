@@ -4,47 +4,52 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
 
 public class UIManager : MonoBehaviour
 {
     private ComboManager comboManager;
     public TextMeshProUGUI currentTimeText;
-    public AudioSource audioSource;
+    public VideoPlayer videoPlayer;
+    public GameObject loadingWindow;
     public GameObject clearWindow;
     public GameObject playWindow;
     public GameObject pauseWindow;
     public Slider nowPlayingSlider;
+    public NoteMove noteMove;
 
     private float currentTime;
-    public bool pause = false;
-
+    public bool pause;
     void Start()
     {
+        pause = false;
         comboManager = GetComponent<ComboManager>();
         clearWindow.gameObject.SetActive(false);
         pauseWindow.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;               //어차피 커서 락을 걸기에 일시정지 버튼은 없앴습니다. 
-        nowPlayingSlider.maxValue = audioSource.clip.length;
-        audioSource.loop = false;                               //반복은 꺼놨습니다. 생각해보니 아래에서 audioSource의 clip을 null로 해주기에 필요 없을지도 모르겠습니다.
+        playWindow.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (videoPlayer != null && videoPlayer.isPrepared)
         {
-            if (playWindow.activeInHierarchy)
+            loadingWindow.gameObject.SetActive(false);
+            playWindow.gameObject.SetActive(true);
+            Debug.Log("Update" + videoPlayer.clip.name);
+            nowPlayingSlider.maxValue = (float)videoPlayer.length;
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleCursor(!pause);
             }
-        }
-        currentTime = audioSource.time;
-        currentTimeText.text = FormatTime(currentTime);
-        nowPlayingSlider.value = audioSource.time;
-
-        if (nowPlayingSlider.value == nowPlayingSlider.maxValue)//곡이 끝날 시입니다. 게임 오버시도 넣어야 합니다.
-        {
-            comboManager.UpdateResult();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
-            Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다.
+            currentTime = (float)videoPlayer.time;
+            currentTimeText.text = FormatTime(currentTime);
+            nowPlayingSlider.value = currentTime;
+            if (nowPlayingSlider.value == nowPlayingSlider.maxValue)//곡이 끝날 시입니다. 게임 오버시도 넣어야 합니다.
+            {
+                comboManager.UpdateResult();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
+                Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다.
+            }
         }
     }
 
@@ -72,45 +77,53 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// 음악의 일시정지 여부를 바꿔주는 함수입니다.
     /// </summary>
-    private void ChangeMusicPauseState()
+    private void ChangeVideoPauseState()
     {
-        if (IsMusicPlaying())
+        if (IsVideoPlaying())
         {
-            PauseMusic();
+            PauseVideo();
         }
         else
         {
-            PlayMusic();
+            PlayVideo();
         }
     }
 
     /// <summary>
     /// 음악이 재생중인지 판단해주는 함수입니다.
     /// </summary>
-    public bool IsMusicPlaying()
+    private bool IsVideoPlaying()
     {
-        return audioSource.isPlaying;
+        return videoPlayer.isPlaying;
     }
     /// <summary>
     /// 음악 일시정지입니다.
     /// </summary>
-    private void PauseMusic()
+    private void PauseVideo()
     {
-        audioSource.Pause();
+        videoPlayer.Pause();
     }
     /// <summary>
-    /// 음악 재새입니다.
+    /// 음악 재생입니다.
     /// </summary>
-    private void PlayMusic()
+    private void PlayVideo()
     {
-        audioSource.Play();
+        videoPlayer.Play();
     }
 
     public void ToggleCursor(bool toggle)
     {
-        ChangeMusicPauseState();
+        ChangeVideoPauseState();
         pauseWindow.gameObject.SetActive(toggle);
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         pause = !pause;
+        if (Time.timeScale > 0.0f)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 }

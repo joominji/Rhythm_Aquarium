@@ -13,7 +13,6 @@ public class ComboManager : MonoBehaviour
     public TextMeshProUGUI judgeText;
     public TextMeshProUGUI comboLevelText;
     public TextMeshProUGUI[] scoreText;
-
     public TextMeshProUGUI[] CountText;
 
     public Slider comboGauge;
@@ -45,65 +44,68 @@ public class ComboManager : MonoBehaviour
 
     private void Update()
     {
-        //작동 확인을 위한 임시입니다. Space 입력시로 작동이 되게 해놨습니다.
-        if (Input.GetKeyDown(KeyCode.A))
+        if (uIManager.pause == false)
         {
-            //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
-            //판정 
-            //1 = 퍼펙트
-            //2 = 그레이트
-            //3 = 굿
-            //4 = 배드
-            //5 = 미쓰
-            //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
-            ScoreCalc(1);
-            ResetActiveTime();
-            ActiveComboText();
-            UpdateComboText();
-            UpdateScoreText();
-            UpdateComboGauge();
+            //작동 확인을 위한 임시입니다.
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
+                //판정 
+                //1 = 퍼펙트
+                //2 = 그레이트
+                //3 = 굿
+                //4 = 배드
+                //5 = 미쓰
+                //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
+                ScoreCalc(1);
+                ResetActiveTime();
+                ActiveComboText();
+                UpdateComboText();
+                UpdateScoreText();
+                UpdateComboGauge();
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
+                //판정 
+                //1 = 퍼펙트
+                //2 = 그레이트
+                //3 = 굿
+                //4 = 배드
+                //5 = 미쓰
+                //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
+                ScoreCalc(2);
+                ResetActiveTime();
+                ActiveComboText();
+                UpdateComboText();
+                UpdateScoreText();
+                UpdateComboGauge();
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
+                //판정 
+                //1 = 퍼펙트
+                //2 = 그레이트
+                //3 = 굿
+                //4 = 배드
+                //5 = 미쓰
+                //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
+                ScoreCalc(0);
+                ResetActiveTime();
+                ActiveComboText();
+                UpdateComboText();
+                UpdateScoreText();
+                UpdateComboGauge();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
-            //판정 
-            //1 = 퍼펙트
-            //2 = 그레이트
-            //3 = 굿
-            //4 = 배드
-            //5 = 미쓰
-            //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
-            ScoreCalc(2);
-            ResetActiveTime();
-            ActiveComboText();
-            UpdateComboText();
-            UpdateScoreText();
-            UpdateComboGauge();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            //아래 이 if문 안에 있는 내용만 가져가셔서  ScoreCalc(여기); 숫자만 판정대로 넣으시기만 하면 합쳐질 겁니다.
-            //판정 
-            //1 = 퍼펙트
-            //2 = 그레이트
-            //3 = 굿
-            //4 = 배드
-            //5 = 미쓰
-            //가져가시면 이 내용물은 지원주세요 이 if문까지지워주세요 아래 if문은 지우시면 안됩니다.
-            ScoreCalc(0);
-            ResetActiveTime();
-            ActiveComboText();
-            UpdateComboText();
-            UpdateScoreText();
-            UpdateComboGauge();
-        }
+        
 
         activeTime = activeTime - Time.deltaTime;
         if (activeTime <= 0)
         {
             DisActiveText();
         }
-        
     }
 
     private void ResetActiveTime()
@@ -142,7 +144,6 @@ public class ComboManager : MonoBehaviour
                 combo = 0;
                 score = 0;
                 break;
-
         }
         //이 코드는 수정 되어도 있어야 하는 코드
         ActiveJudgeEffect(judge);
@@ -213,7 +214,6 @@ public class ComboManager : MonoBehaviour
                 break;
         }
 
-        //계속있을 코드입니다.
         judgeText.gameObject.SetActive(true);
         
         return 0;
@@ -327,15 +327,19 @@ public class ComboManager : MonoBehaviour
         uIManager.playWindow.SetActive(true);
         uIManager.clearWindow.SetActive(false);
         uIManager.pauseWindow.SetActive(false);
-        uIManager.audioSource.time = 0f;
-        uIManager.audioSource.Play();
+        uIManager.videoPlayer.time = 0f;
+        uIManager.videoPlayer.Play();
         comboGauge.value = 0;
         uIManager.pause = false;
 
         calculatedScore = 0;
         UpdateScoreText();
-    
+        if (Time.timeScale <= 0.0)
+        {
+            Time.timeScale = 1.0f;
+        }
         
+        NoteManager.instance.StartCreateNote(SongDataLoader.dataLoaded.notes);
         //노트 시작부터 재생성 기능 추가 필요합니다.
     }
 }
