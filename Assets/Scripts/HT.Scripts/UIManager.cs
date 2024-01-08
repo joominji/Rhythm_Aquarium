@@ -53,7 +53,6 @@ public class UIManager : MonoBehaviour
                 Debug.Log("곡 끝남");
                 comboManager.UpdateResult();   //곡이 끝나야 최종 콤보의 계산을 해줍니다
                 Invoke("ChangeWindow", 1.5f); //1.5초 뒤에 결과 화면이 나오게 해놨습니다.
-                GameManager.instance.golddata.gold += 2000;
             }
         }
     }
@@ -130,5 +129,10 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
+    }
+
+    public void UpdateGold()
+    {
+        GameManager.instance.golddata.gold += 2000;
     }
 }
